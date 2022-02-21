@@ -32,7 +32,6 @@ ALLOWED_HOSTS = [
     'fullstack-news-app-lkoch.herokuapp.com'
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
