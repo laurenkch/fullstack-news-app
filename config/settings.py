@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     #apps
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
-    # 'articles.apps.ArticlesConfig',
+    'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
 
     #third party
