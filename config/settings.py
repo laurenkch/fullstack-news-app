@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'fullstack-news-app-lkoch.herokuapp.com'
+    'fullstack-news-app-lkoch.herokuapp.com/'
 ]
 
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     #apps
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
-    'articles.apps.ArticlesConfig',
+    # 'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
 
     #third party
