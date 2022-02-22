@@ -1,3 +1,4 @@
+import Card from 'react-bootstrap/Card';
 
 function ArticleList({ articlelist, setArticleList }) {
 
@@ -9,18 +10,22 @@ function ArticleList({ articlelist, setArticleList }) {
         articlelist.map((article) =>
             <article
                 key={article.id}>
+                <Card>
+                <div className= 'thumbnail-img'> 
+                    <img src={article.image} alt='article' />
+                </div>
                 <h3>
                     {article.title}
                 </h3>
-                <img src={article.image} alt='article'/>
-                <p>
+                <p className='truncate'>
                     {article.body}
                 </p>
+                </Card>
             </article>
         )
 
     return (
-        <section>{articleHTML}</section>
+        <section className="article-list">{articleHTML}</section>
     )
 }
 
