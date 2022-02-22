@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import Header from './../Header';
 import ArticleDetail from './../ArticleDetail';
 import Cookies from 'js-cookie';
+import LoginForm from './../LoginForm';
+import Registration from './../Registration'; 
 
 function App() {
 
@@ -37,11 +39,43 @@ function App() {
 
   return (
     <div className="App">
-      <Header setView={setView} auth={auth} setAuth={setAuth}/>
+      <Header
+        setView={setView}
+        auth={auth}
+        setAuth={setAuth} 
+        handleError={handleError}
+      />
       <div className='main'>
-        {view === 'article-list' && <ArticleList articlelist={articlelist} setView={setView} setArticleClick={setArticleClick}/>}
-        {view === 'article-form' && <ArticleForm articlelist={articlelist} setArticleList={setArticleList} handleError={handleError} setView={setView} />}
-        {view === 'article-detail' && <ArticleDetail articleClick={articleClick} articlelist={articlelist}/>}
+        {view === 'login' && 
+          <LoginForm
+          setView={setView}
+          setAuth={setAuth}
+          />
+        }
+        {view === 'registration' && 
+          <Registration
+          setView={setView}
+          setAuth={setAuth}
+          />
+        }
+        {view === 'article-list' &&
+          <ArticleList
+            articlelist={articlelist}
+            setView={setView}
+            setArticleClick={setArticleClick}
+          />}
+        {view === 'article-form' &&
+          <ArticleForm
+            articlelist={articlelist}
+            setArticleList={setArticleList}
+            handleError={handleError}
+            setView={setView}
+          />}
+        {view === 'article-detail' &&
+          <ArticleDetail
+            articleClick={articleClick}
+            articlelist={articlelist}
+          />}
       </div>
     </div>
   );

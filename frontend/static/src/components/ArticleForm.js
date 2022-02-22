@@ -3,13 +3,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
 
-function ArticleForm({ articlelist, setArticleList, handleError }) {
+function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
 
-    const [state, setState] = useState({
+    const INITIAL_STATE = {
         title: '',
         body: '',
         image: '',
-    })
+    }
+    const [state, setState] = useState(INITIAL_STATE)
 
     const [preview, setPreview] = useState(null)
 
@@ -25,7 +26,6 @@ function ArticleForm({ articlelist, setArticleList, handleError }) {
 
     const previewImage = e => {
         const file = e.target.files[0];
-        console.log(file)
         setState({ ...state, 'image': file })
         
         const reader = new FileReader();
@@ -61,6 +61,8 @@ function ArticleForm({ articlelist, setArticleList, handleError }) {
 
         const submittedArticle = await response.json()
         setArticleList([...articlelist, submittedArticle])
+        setState(INITIAL_STATE);
+        setView('article-list');
     }
     
 

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 
-function LoginForm(props) {
+function LoginForm({setAuth, setView}) {
 
     const [state, setState] = useState({
         username: '',
@@ -46,12 +46,19 @@ function LoginForm(props) {
         } else {
             const data = await response.json();
             Cookies.set("Authorization", `Token ${data.key}`);
-            props.setAuth(true);
+            setAuth(true);
+            setView('article-list');
         }
 
     }
 
+    const handleClick = e => {
+        e.preventDefault();
+        setView(e.target.value)
+    }
+
     return (
+        <div>
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor="username">Username</Form.Label>
             <Form.Control
@@ -81,7 +88,9 @@ function LoginForm(props) {
                 value={state.password}
             />
             <Button type="submit">Login</Button>
-        </Form>
+            </Form>
+            <button type="button" value="registration" onClick={handleClick}>Register a new account instead</button>
+        </div>
     )
 }
 

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
 
 
-function Register({ setAuth }) {
+function Register({ setAuth, setView }) {
 
     const [state, setState] = useState({
         username: '',
@@ -50,15 +50,18 @@ function Register({ setAuth }) {
             } else {
                 const data = await response.json();
                 Cookies.set("Authorization", `Token ${data.key}`);
-                setAuthorization(true);
-                setUserName(state.username)
-            }
+                setAuth(true);
+                setView('article-list')
+            }   
         } else {
             alert('passwords must match');
         }
     }
 
-
+    const handleClick = e => {
+        e.preventDefault();
+        setView(e.target.value);
+    }
     return (
         <div>
             <Form onSubmit={handleSubmit}>
@@ -100,6 +103,7 @@ function Register({ setAuth }) {
                 />
                 <Button type='submit'>Create Account</Button>
             </Form>
+            <button type="button" value="login" onClick={handleClick}>Log in to an existing account instead</button>
         </div>
     )
 }
