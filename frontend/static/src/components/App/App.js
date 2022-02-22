@@ -11,6 +11,7 @@ function App() {
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'))
   const [articlelist, setArticleList] = useState(null)
   const [view, setView] = useState('article-list')
+  const [articleClick, setArticleClick] = useState('');
 
 
   const handleError = (err) => {
@@ -24,22 +25,23 @@ function App() {
         throw new Error("Network response not ok");
       } else {
         const data = await response.json();
-        console.log(data)
         setArticleList(data);
       }
     }
     getArticles();
   }, []);
 
-  console.log(view);
+  if (!articlelist) {
+    return 'Loading articles...'
+  }
 
   return (
     <div className="App">
-      <Header />
+      <Header setView={setView} auth={auth} setAuth={setAuth}/>
       <div className='main'>
-      {view === 'article-list' && <ArticleList articlelist={articlelist} setArticleList={setArticleList} handleError={handleError} setView={setView} />}
-      {view === 'article-form' && <ArticleForm articlelist={articlelist} setArticleList={setArticleList} handleError={handleError} setView={setView} />}
-      {view === 'article-detail' && <ArticleDetail />}
+        {view === 'article-list' && <ArticleList articlelist={articlelist} setView={setView} setArticleClick={setArticleClick}/>}
+        {view === 'article-form' && <ArticleForm articlelist={articlelist} setArticleList={setArticleList} handleError={handleError} setView={setView} />}
+        {view === 'article-detail' && <ArticleDetail articleClick={articleClick} articlelist={articlelist}/>}
       </div>
     </div>
   );

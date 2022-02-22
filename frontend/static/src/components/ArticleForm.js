@@ -65,6 +65,10 @@ function ArticleForm({ articlelist, setArticleList, handleError }) {
     
 
     return (
+        <div>
+        <h2>
+            Submit an Article
+        </h2>
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor="title">Title</Form.Label>
             <Form.Control
@@ -96,7 +100,8 @@ function ArticleForm({ articlelist, setArticleList, handleError }) {
             />
             {preview && <img src={preview} alt='preview'/>}
             <Button type='submit'>Submit</Button>
-        </Form>
+            </Form>
+        </div>
     )
 }
 

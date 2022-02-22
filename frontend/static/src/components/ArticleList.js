@@ -1,16 +1,23 @@
 import Card from 'react-bootstrap/Card';
 
-function ArticleList({ articlelist, setArticleList }) {
+function ArticleList({ articlelist, setView, setArticleClick }) {
 
     if (!articlelist) {
         return 'Loading articles...'
     }
 
+    const handleClick = (e) => {
+        setView('article-detail')
+        setArticleClick(e.currentTarget.id)
+    }
+
+    
+
     const articleHTML =
         articlelist.map((article) =>
             <article
                 key={article.id}>
-                <Card>
+                <Card onClick={handleClick} id={article.id}>
                 <div className= 'thumbnail-img'> 
                     <img src={article.image} alt='article' />
                 </div>
@@ -25,7 +32,14 @@ function ArticleList({ articlelist, setArticleList }) {
         )
 
     return (
-        <section className="article-list">{articleHTML}</section>
+        <div>
+             <h2>
+                Articles
+            </h2>
+            <section className="article-list">
+                {articleHTML}
+            </section>
+        </div>
     )
 }
 
