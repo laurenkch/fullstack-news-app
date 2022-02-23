@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthentic
 
 class PublishedArticleListAPIView(generics.ListAPIView):
     serializer_class = ArticleSerializer
-    permission_class = IsAuthenticatedOrReadOnly
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         """
@@ -19,14 +19,15 @@ class PublishedArticleListAPIView(generics.ListAPIView):
         queryset = queryset.filter(phase='Published')
         return queryset
 
+
 class AllArticlesView(generics.ListAPIView):
-    permission_class=(IsAdminUser,)
+    permission_classes = (IsAdminUser,)
     '''
     returns all articles for the admin. 
     '''
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
-        
+
 
 class AuthorArticleListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthor,)
@@ -37,11 +38,11 @@ class AuthorArticleListView(generics.ListCreateAPIView):
         filters list to return articles by the author
         """
         queryset = Article.objects.order_by('-created_at')
-        queryset = queryset.filter(author = self.request.user)
+        queryset = queryset.filter(author=self.request.user)
         queryset = queryset.filter(phase='Draft')
 
         return queryset
-    
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
         serializer.save(phase='Draft')
@@ -56,8 +57,8 @@ class AuthorEditView(generics.RetrieveUpdateDestroyAPIView):
         filters list to return articles by the author, and articles that are in the Draft phase.
         """
         queryset = Article.objects.order_by('-created_at')
-        queryset = queryset.filter(author = self.request.user)
-        queryset = queryset.filter(phase = 'Draft')
+        queryset = queryset.filter(author=self.request.user)
+        queryset = queryset.filter(phase='Draft')
         return queryset
 
 

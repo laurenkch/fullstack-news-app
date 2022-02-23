@@ -9,6 +9,5 @@ urlpatterns =[
     path('all/', AllArticlesView.as_view()),
     path('user/', AuthorArticleListView.as_view()),
     path('edit/<int:pk>/', AuthorEditView.as_view()),
-    # path('submit/<int:pk>', AuthorSubumitView.as_view()),
     path('<int:pk>/', AdminDetailView.as_view(), name='article_detail'),
 ]
