@@ -9,6 +9,7 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         title: '',
         body: '',
         image: '',
+        file: '',
     }
     const [state, setState] = useState(INITIAL_STATE)
 
@@ -45,7 +46,7 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
 
     const previewImage = e => {
         const file = e.target.files[0];
-        setState({ ...state, 'image': file })
+        setState({ ...state, 'file': file })
         
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -64,6 +65,7 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         formData.append('image', state.image);
         formData.append('title', state.title);
         formData.append('body', state.body);
+        formData.append('phase', 'Published')
 
         const options = {
             method: 'POST',
@@ -82,6 +84,8 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         const submittedArticle = await response.json()
         setArticleList([...draftlist, submittedArticle.title])
         setState(INITIAL_STATE);
+        // clears image iput on form
+        e.target.form[2].value = ''
     }
 
     const handleClick = e => {
@@ -104,14 +108,10 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
             formData.append('id', state.id);
             formData.append('title', state.title);
             formData.append('body', state.body);
+            if (typeof state.image == 'object') {
+                formData.append('image', state.image)
+            }
 
-            // need to work on this logic for picture updates. maybe not form data unless they choose a new pic?
-            // formData.append('image', state.image);
-            // if (state.image) {
-            //     formData.append('image', state.image)
-            // }
-            console.log(state)
-            console.log(formData)
             const options = {
                 method: 'PUT',
                 headers: {
@@ -127,17 +127,20 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
             const submittedArticle = await response.json()
             setArticleList([...draftlist, submittedArticle.title])
             setState(INITIAL_STATE);
+            setPreview(null);
+            // clears image iput on form
+            e.target.form[2].value = ''
+
 
         } else {
         
             const formData = new FormData();
            
-            formData.append('image', state.image);
             formData.append('title', state.title);
             formData.append('body', state.body);
-            // if (state.image) {
-            //     formData.append('image',state.image)
-            // }
+            if (typeof state.image == 'object') {
+                formData.append('image',state.image)
+            }
 
             const options = {
                 method: 'POST',
@@ -157,6 +160,9 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
             setState(INITIAL_STATE);
             setPreview(null);
         }
+        
+        // clears image iput on form
+        e.target.form[2].value = ''
 
     }
 
@@ -178,12 +184,12 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         const newdraftList = draftlist.filter((item) => (item.id != pk))
         setDraftList(newdraftList)
         setState(INITIAL_STATE)
+        const imageInput = e.target.form[2].value
+        // clears image iput on form
+        e.target.form[2].value = ''
     }
-    
-
 
     const draftsHTML = draftlist.map((article) => <button key={article.id} type='button' value={article.id} onClick={handleClick}>{article.title} </button>)
-    
 
     return (
         <div>
