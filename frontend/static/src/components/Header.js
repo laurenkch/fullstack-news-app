@@ -22,7 +22,7 @@ function Header({ auth, setView, setAuth, handleError}) {
         if (!response.ok) {
             throw new Error("Network response not ok");
         } else {
-            Cookies.remove("Authorization");
+            // Cookies.remove("Authorization");
             setAuth(false);
         }
 
