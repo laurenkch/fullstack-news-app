@@ -61,8 +61,6 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
 
         const formData = new FormData();
 
-        // for (const [key, value] of Object.entries(object1)) {
-        //     console.log(`${key}: ${value}`);
         formData.append('image', state.image);
         formData.append('title', state.title);
         formData.append('body', state.body);
@@ -91,23 +89,29 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         const pk = e.target.value;
         const article = draftlist.find((item) => item.id == pk)
         setState(article);
+        if (state.image) {
+            setPreview(state.image);
+        }
     }
 
     const updateArticle = async e => {
 
         if (state.id) {
 
-            const newData = state
-
-            if (!state.image) {
-                delete state.image
-            }
             const pk = state.id
             const formData = new FormData();
-            for (const [key, value] of Object.entries(newData)) {
-                formData.append(`${key}`, `${value}`)
-            };
+            
+            formData.append('id', state.id);
+            formData.append('title', state.title);
+            formData.append('body', state.body);
 
+            // need to work on this logic for picture updates. maybe not form data unless they choose a new pic?
+            // formData.append('image', state.image);
+            // if (state.image) {
+            //     formData.append('image', state.image)
+            // }
+            console.log(state)
+            console.log(formData)
             const options = {
                 method: 'PUT',
                 headers: {
@@ -127,10 +131,13 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         } else {
         
             const formData = new FormData();
-
-            for (const [key, value] of Object.entries(state)) {
-                formData.append(`${key}`, `${value}`)
-            };
+           
+            formData.append('image', state.image);
+            formData.append('title', state.title);
+            formData.append('body', state.body);
+            // if (state.image) {
+            //     formData.append('image',state.image)
+            // }
 
             const options = {
                 method: 'POST',
@@ -148,6 +155,7 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
             const submittedArticle = await response.json()
             setArticleList([...draftlist, submittedArticle.title])
             setState(INITIAL_STATE);
+            setPreview(null);
         }
 
     }
@@ -212,8 +220,8 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
                 name='image'
                 type='file'
                 onChange={previewImage}
-            />
-                {preview && <img src={preview} alt='preview' />}
+                />
+                {preview && <div><img src={preview} alt='preview' /></div>}
             <Button type='button' onClick={()=> setState(INITIAL_STATE)}>Clear Fields</Button>
             <Button type='button' onClick={updateArticle}>Save Draft</Button>
             <Button type='button' onClick={deleteArticle}>Delete Article</Button> 
