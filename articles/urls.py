@@ -1,10 +1,14 @@
 from django.urls import path, include
 
-from .views import ArticleDetailAPIView, ArticleListAPIView;
+from .views import PublishedArticleListAPIView, AllArticlesView, AuthorArticleListView, AuthorEditView, AdminDetailView
 
 app_name= 'articles'
 
 urlpatterns =[
-    path('', ArticleListAPIView.as_view()),
-    path('<int:pk>/', ArticleDetailAPIView.as_view(), name='article_detail'),
+    path('', PublishedArticleListAPIView.as_view()),
+    path('all/', AllArticlesView.as_view()),
+    path('user/', AuthorArticleListView.as_view()),
+    path('edit/<int:pk>/', AuthorEditView.as_view()),
+    # path('submit/<int:pk>', AuthorSubumitView.as_view()),
+    path('<int:pk>/', AdminDetailView.as_view(), name='article_detail'),
 ]

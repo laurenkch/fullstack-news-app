@@ -103,7 +103,7 @@ function Register({ setAuth, setView }) {
                 />
                 <Button type='submit'>Create Account</Button>
             </Form>
-            <button type="button" value="login" onClick={handleClick}>Log in to an existing account instead</button>
+            <button type="button" value="login" onClick={handleClick} className="verification-redirect">I have an account!</button>
         </div>
     )
 }

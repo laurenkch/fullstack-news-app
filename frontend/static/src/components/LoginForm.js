@@ -89,7 +89,7 @@ function LoginForm({setAuth, setView}) {
             />
             <Button type="submit">Login</Button>
             </Form>
-            <button type="button" value="registration" onClick={handleClick}>Register a new account instead</button>
+            <button type="button" value="registration" onClick={handleClick} className="verification-redirect">I need to make an account</button>
         </div>
     )
 }

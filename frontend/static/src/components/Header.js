@@ -26,6 +26,8 @@ function Header({ auth, setView, setAuth, handleError}) {
             setAuth(false);
         }
 
+        setView('article-list')
+
     }
 
     const handleLogin = e => {
@@ -50,11 +52,12 @@ function Header({ auth, setView, setAuth, handleError}) {
                         onClick={handleClick}
                     >Home</Button>
                 </li>
-                <li>
-                    <Button type='button' name='article-form' onClick={handleClick}>
-                    Submit Article
-                    </Button>
-                </li>
+                    {auth &&
+                        <li>
+                            <Button type='button' name='article-form' onClick={handleClick}>
+                                Submit Article
+                            </Button>
+                        </li>}
                 </div>
                 <div className='login-logout-button'>
                 {auth ?

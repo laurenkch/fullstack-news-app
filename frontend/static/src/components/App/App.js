@@ -22,7 +22,13 @@ function App() {
   useEffect(() => {
 
     const getArticles = async () => {
-      const response = await fetch('/api/v1/articles/').catch(handleError);
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-CSRFToken': Cookies.get('csrftoken'),
+        },
+      };
+      const response = await fetch('/api/v1/articles/', options).catch(handleError);
       if (!response.ok) {
         throw new Error("Network response not ok");
       } else {
@@ -31,7 +37,7 @@ function App() {
       }
     }
     getArticles();
-  }, []);
+  }, [auth]);
 
   if (!articlelist) {
     return 'Loading articles...'
