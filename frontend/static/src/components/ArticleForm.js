@@ -56,49 +56,21 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
 
     }
 
-    const handleSubmit = async e => {
-
-        e.preventDefault();
-
-        const formData = new FormData();
-
-        formData.append('image', state.image);
-        formData.append('title', state.title);
-        formData.append('body', state.body);
-        formData.append('phase', 'Published')
-
-        const options = {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': Cookies.get('csrftoken'),
-            },
-            body: formData,
-        }
-
-        const response = await fetch('/api/v1/articles/user/', options).catch(handleError);
-
-        if (!response.ok) {
-            throw new Error("Network response not ok");
-        }
-
-        const submittedArticle = await response.json()
-        setArticleList([...draftlist, submittedArticle.title])
-        setState(INITIAL_STATE);
-        // clears image iput on form
-        e.target.form[2].value = ''
-    }
-
     const handleClick = e => {
         e.preventDefault();
         const pk = e.target.value;
         const article = draftlist.find((item) => item.id == pk)
         setState(article);
-        if (state.image) {
-            setPreview(state.image);
+        if (article.image) {
+            setPreview(article.image);
+        } else {
+            setPreview(null)
         }
     }
 
-    const updateArticle = async e => {
+    //////////////////////////////////////////////////////////////////////// SAVE (post and patch)
+
+    const saveArticle = async e => {
 
         if (state.id) {
 
@@ -108,12 +80,13 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
             formData.append('id', state.id);
             formData.append('title', state.title);
             formData.append('body', state.body);
-            if (typeof state.image == 'object') {
-                formData.append('image', state.image)
+            if (state.file) {
+                formData.append('image', state.file)
             }
 
+
             const options = {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'X-CSRFToken': Cookies.get('csrftoken'),
                 },
@@ -138,9 +111,14 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
            
             formData.append('title', state.title);
             formData.append('body', state.body);
-            if (typeof state.image == 'object') {
-                formData.append('image',state.image)
+                
+            if (state.file) {
+                formData.append('image', state.file)
             }
+            if (state.image) {
+                formData.append('image', state.image)
+            }
+
 
             const options = {
                 method: 'POST',
@@ -166,6 +144,9 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
 
     }
 
+    //////////////////////////////////////////////////////////////////////// Delete 
+
+
     const deleteArticle = async (e)=> {
         
         const pk = state.id;
@@ -184,9 +165,47 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         const newdraftList = draftlist.filter((item) => (item.id != pk))
         setDraftList(newdraftList)
         setState(INITIAL_STATE)
-        const imageInput = e.target.form[2].value
-        // clears image iput on form
         e.target.form[2].value = ''
+        setPreview(null);
+    }
+
+    //////////////////////////////////////////////////////////////////////// Submit/Publish 
+
+
+    const handleSubmit = async e => {
+
+        e.preventDefault();
+
+        const pk = state.id
+
+        const formData = new FormData();
+
+        formData.append('title', state.title);
+        formData.append('body', state.body);
+        formData.append('phase', 'Submitted');
+        if (state.file) {
+            formData.append('image', state.file)
+        };
+
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: formData,
+        }
+
+        const response = await fetch(`/api/v1/articles/edit/${pk}/`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error("Network response not ok");
+        }
+
+        const newdraftList = draftlist.filter((item) => (item.id != pk))
+        setDraftList(newdraftList)
+        setState(INITIAL_STATE)
+        e.target.form[2].value = ''
+        setPreview(null);
     }
 
     const draftsHTML = draftlist.map((article) => <button key={article.id} type='button' value={article.id} onClick={handleClick}>{article.title} </button>)
@@ -229,9 +248,9 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
                 />
                 {preview && <div><img src={preview} alt='preview' /></div>}
             <Button type='button' onClick={()=> setState(INITIAL_STATE)}>Clear Fields</Button>
-            <Button type='button' onClick={updateArticle}>Save Draft</Button>
-            <Button type='button' onClick={deleteArticle}>Delete Article</Button> 
-            <Button type='submit'>Submit Article</Button>
+            <Button type='button' className='save-draft'onClick={saveArticle}>Save Draft</Button>
+            <Button type='button' className='delete-draft' onClick={deleteArticle}>Delete Draft</Button> 
+            <Button type='submit' className='delete-draft'>Submit Article</Button>
             </Form>
         </div>
     )

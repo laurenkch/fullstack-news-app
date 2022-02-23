@@ -11,8 +11,6 @@ function ArticleList({ articlelist, setView, setArticleClick }) {
         setArticleClick(e.currentTarget.id)
     }
 
-    
-
     const articleHTML =
         articlelist.map((article) =>
             <article
