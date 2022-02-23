@@ -81,6 +81,7 @@ nav {
   max-width: 375px;
   cursor: pointer;
   transition: 100ms;
+  margin: 10px 10px;
 }
 
 .card:hover {
