@@ -9,7 +9,7 @@ import ArticleList from './components/ArticleList';
 import ArticleForm from './components/ArticleForm';
 import LoginForm from './components/LoginForm';
 import Registration from './components/Registration';
-
+import ArticleDetail from './components/ArticleDetail';
 
 
 ReactDOM.render(
@@ -18,15 +18,16 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />} >
           <Route index element={<ArticleList />} />
+          <Route path='/article/:id' element={<ArticleDetail />} />
           <Route path='login' element={<LoginForm />} />
-          {/* <Route path='register' element={<Registration />} />
-          <Route path='drafts' element={<ArticleForm />} /> */} */}
-          {/* <Route path='admin' element={<Admin />} />
-          {/* <Route path='*' element={
+          <Route path='register' element={<Registration />} />
+          <Route path='drafts' element={<ArticleForm />} />
+          {/* <Route path='admin' element={<Admin />} /> */}
+          <Route path='*' element={
             <main style={{ padding: '1 rem' }}>
               <p>There's nothing here!</p>
             </main>
-          } /> */}
+          } /> 
         </Route>
       </Routes>
     </BrowserRouter>

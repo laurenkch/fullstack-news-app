@@ -2,9 +2,13 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
+import { useOutletContext} from 'react-router-dom'
 
 
-function Register({ setAuth, setView }) {
+function Register() {
+
+    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+
 
     const [state, setState] = useState({
         username: '',
@@ -51,17 +55,13 @@ function Register({ setAuth, setView }) {
                 const data = await response.json();
                 Cookies.set("Authorization", `Token ${data.key}`);
                 setAuth(true);
-                setView('article-list')
+                navigate('/');
             }   
         } else {
             alert('passwords must match');
         }
     }
 
-    const handleClick = e => {
-        e.preventDefault();
-        setView(e.target.value);
-    }
     return (
         <div>
             <Form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ function Register({ setAuth, setView }) {
                 />
                 <Button type='submit'>Create Account</Button>
             </Form>
-            <button type="button" value="login" onClick={handleClick} className="verification-redirect">I have an account!</button>
+            <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">I have an account!</button>
         </div>
     )
 }

@@ -19,6 +19,18 @@ class PublishedArticleListAPIView(generics.ListAPIView):
         queryset = queryset.filter(phase='Published')
         return queryset
 
+class PublishedDetailView(generics.RetrieveAPIView):
+    serializer_class= ArticleSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        """
+        filters list to return only published articles.  
+        """
+        queryset = Article.objects.all()
+        queryset = queryset.filter(phase='Published')
+        return queryset
+
 
 class AllArticlesView(generics.ListAPIView):
     permission_classes = (IsAdminUser,)

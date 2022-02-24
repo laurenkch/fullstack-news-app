@@ -1,38 +1,13 @@
 import Card from 'react-bootstrap/Card';
 import { useState, useEffect } from 'react';
-import { handleError } from './utility';
 import Cookies from 'js-cookie';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, Link } from 'react-router-dom';
+import { handleError } from './utility';
 
 function ArticleList() {
 
-    const [articlelist, setArticleList] = useState(null)
-    const [navigate, auth, setAuth] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
 
-    useEffect(() => {
-
-        const getArticles = async () => {
-            const options = {
-                method: 'GET',
-                headers: {
-                    'X-CSRFToken': Cookies.get('csrftoken'),
-                },
-            };
-            const response = await fetch('/api/v1/articles/', options).catch(handleError);
-            if (!response.ok) {
-                throw new Error("Network response not ok");
-            } else {
-                const data = await response.json();
-                setArticleList(data);
-            }
-        }
-        getArticles();
-    }, [auth]);
-
-    const handleClick = (e) => {
-        // setArticleClick(e.currentTarget.id)
-        console.log('click');
-    }
 
     if (!articlelist) {
         return 'Loading articles...'
@@ -42,7 +17,8 @@ function ArticleList() {
         articlelist.map((article) =>
             <article
                 key={article.id}>
-                <Card onClick={handleClick} id={article.id}>
+                <Link to={`article/${article.id}`}>
+                <Card>
                 <div className= 'thumbnail-img'>
                     <img src={article.image} alt='article' />
                 </div>
@@ -53,6 +29,7 @@ function ArticleList() {
                     {article.body}
                 </p>
                 </Card>
+                </Link>    
             </article>
         )
 

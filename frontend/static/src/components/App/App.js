@@ -7,47 +7,49 @@ import ArticleDetail from './../ArticleDetail';
 import Cookies from 'js-cookie';
 import LoginForm from './../LoginForm';
 import Registration from './../Registration';
-import { Outlet, useNavigate,} from 'react-router-dom';
+import { Outlet, useNavigate, } from 'react-router-dom';
+import { handleError } from './../utility';
+
 
 function App() {
 
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'))
-  const [view, setView] = useState('article-list')
-  const [articleClick, setArticleClick] = useState('');
 
-  // const handleError = (err) => {
-  //   console.warn(err);
-  // }
-  // useEffect(() => {
+  const [articlelist, setArticleList] = useState(null)
 
-  //   const getArticles = async () => {
-  //     const options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'X-CSRFToken': Cookies.get('csrftoken'),
-  //       },
-  //     };
-  //     const response = await fetch('/api/v1/articles/', options).catch(handleError);
-  //     if (!response.ok) {
-  //       throw new Error("Network response not ok");
-  //     } else {
-  //       const data = await response.json();
-  //       setArticleList(data);
-  //     }
-  //   }
-  //   getArticles();
-  // }, [auth]);
 
   const navigate = useNavigate()
+
+
+  useEffect(() => {
+
+    const getArticles = async () => {
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-CSRFToken': Cookies.get('csrftoken'),
+        },
+      };
+      const response = await fetch('/api/v1/articles/', options).catch(handleError);
+      if (!response.ok) {
+        throw new Error("Network response not ok");
+      } else {
+        const data = await response.json();
+        setArticleList(data);
+      }
+    }
+    getArticles();
+  }, []);
+
 
   return (
     <div className="App conatiner-fluid">
 
 
 
-      <Header />
+      <Header auth={auth} setAuth={setAuth}/>
       <main>
-        <Outlet context={[navigate, auth, setAuth]} />
+        <Outlet context={[navigate, auth, setAuth, articlelist, setArticleList]} />
       </main>
 
 

@@ -2,8 +2,14 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
+import { useOutletContext, Link } from 'react-router-dom';
+import { handleError } from './utility';
 
-function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
+
+function ArticleForm() {
+
+    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+
 
     const INITIAL_STATE = {
         title: '',

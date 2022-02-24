@@ -1,10 +1,10 @@
-import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
+import { handleError } from './utility';
 
+function Header({auth, setAuth}) {
 
-function Header(props) {
-
+    console.log(auth)
     const handleLogout = async e => {
         e.preventDefault();
 
@@ -17,33 +17,16 @@ function Header(props) {
         };
 
         const response = await fetch("/rest-auth/logout/", options).catch(
-            props.handleError
+            handleError
         );
 
         if (!response.ok) {
             throw new Error("Network response not ok");
         } else {
             Cookies.remove("Authorization");
-            props.setAuth(false);
+            setAuth(false);
         }
     }
-
-    // const handleLogin = e => {
-    //     e.preventDefault();
-    //     setView(e.target.value)
-    // }
-
-    // const handleClick = e => {
-    //     e.preventDefault();
-    //     setView(e.target.name)
-    // }
-
-                //     <li><NavLink to='/'>Home</NavLink></li>
-                // <li><NavLink to='/profile'>Profile</NavLink></li>
-                // <li><NavLink to='/login'>Login</NavLink></li>
-                // <li>
-                //     <button type='button' onClick={handleLogout}>Logout</button>
-                // </li>
 
     return (
         <nav>
@@ -52,7 +35,7 @@ function Header(props) {
                 <li>
                     <NavLink to='/'>Home</NavLink>
                 </li>
-                    {props.auth &&
+                    {auth &&
                         <li>
                             <NavLink to='/drafts'>
                                 Drafts
@@ -60,7 +43,7 @@ function Header(props) {
                         </li>}
                 </div>
                 <div className='login-logout-button'>
-                {props.auth ?
+                {auth ?
                     <li>
                         <button type='button' onClick={handleLogout} value={'logout'}>
                             Logout

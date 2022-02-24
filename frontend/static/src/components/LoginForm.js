@@ -2,8 +2,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import { useOutletContext, Link } from 'react-router-dom';
+import { handleError } from './utility';
 
-function LoginForm({setAuth, setView}) {
+function LoginForm() {
+    
+    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
 
     const [state, setState] = useState({
         username: '',
@@ -47,14 +51,8 @@ function LoginForm({setAuth, setView}) {
             const data = await response.json();
             Cookies.set("Authorization", `Token ${data.key}`);
             setAuth(true);
-            setView('article-list');
         }
-
-    }
-
-    const handleClick = e => {
-        e.preventDefault();
-        setView(e.target.value)
+        navigate('/');
     }
 
     return (
@@ -89,7 +87,7 @@ function LoginForm({setAuth, setView}) {
             />
             <Button type="submit">Login</Button>
             </Form>
-            <button type="button" value="registration" onClick={handleClick} className="verification-redirect">I need to make an account</button>
+            <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
         </div>
     )
 }
