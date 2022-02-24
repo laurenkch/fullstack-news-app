@@ -1,8 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Cookies from 'js-cookie';
+import { NavLink } from 'react-router-dom';
 
 
-function Header({ auth, setView, setAuth, handleError}) {
+function Header(props) {
 
     const handleLogout = async e => {
         e.preventDefault();
@@ -16,60 +17,57 @@ function Header({ auth, setView, setAuth, handleError}) {
         };
 
         const response = await fetch("/rest-auth/logout/", options).catch(
-            handleError
+            props.handleError
         );
 
         if (!response.ok) {
             throw new Error("Network response not ok");
         } else {
             Cookies.remove("Authorization");
-            setAuth(false);
+            props.setAuth(false);
         }
-
-        setView('article-list')
-
     }
 
-    const handleLogin = e => {
-        e.preventDefault();
-        setView(e.target.value)
-    }
+    // const handleLogin = e => {
+    //     e.preventDefault();
+    //     setView(e.target.value)
+    // }
 
-    const handleClick = e => {
-        e.preventDefault();
-        setView(e.target.name)
-    }
+    // const handleClick = e => {
+    //     e.preventDefault();
+    //     setView(e.target.name)
+    // }
 
+                //     <li><NavLink to='/'>Home</NavLink></li>
+                // <li><NavLink to='/profile'>Profile</NavLink></li>
+                // <li><NavLink to='/login'>Login</NavLink></li>
+                // <li>
+                //     <button type='button' onClick={handleLogout}>Logout</button>
+                // </li>
 
     return (
         <nav>
             <ul>
                 <div className='nav-buttons'>
                 <li>
-                    <Button
-                        type='button'
-                        name='article-list'
-                        onClick={handleClick}
-                    >Home</Button>
+                    <NavLink to='/'>Home</NavLink>
                 </li>
-                    {auth &&
+                    {props.auth &&
                         <li>
-                            <Button type='button' name='article-form' onClick={handleClick}>
-                                Submit Article
-                            </Button>
+                            <NavLink to='/drafts'>
+                                Drafts
+                            </NavLink>
                         </li>}
                 </div>
                 <div className='login-logout-button'>
-                {auth ?
+                {props.auth ?
                     <li>
-                        <Button type='button' onClick={handleLogout} value={'logout'}>
+                        <button type='button' onClick={handleLogout} value={'logout'}>
                             Logout
-                        </Button>
+                        </button>
                     </li> : 
                     <li>
-                            <Button type='button' onClick={handleLogin} value={'login'}>
-                            Login
-                        </Button>
+                            <NavLink to='login'>Login</NavLink>
                     </li>
                 }
                 </div>

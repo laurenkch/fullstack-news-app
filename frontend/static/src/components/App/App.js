@@ -6,46 +6,55 @@ import Header from './../Header';
 import ArticleDetail from './../ArticleDetail';
 import Cookies from 'js-cookie';
 import LoginForm from './../LoginForm';
-import Registration from './../Registration'; 
+import Registration from './../Registration';
+import { Outlet, useNavigate,} from 'react-router-dom';
 
 function App() {
 
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'))
-  const [articlelist, setArticleList] = useState(null)
   const [view, setView] = useState('article-list')
   const [articleClick, setArticleClick] = useState('');
 
+  // const handleError = (err) => {
+  //   console.warn(err);
+  // }
+  // useEffect(() => {
 
-  const handleError = (err) => {
-    console.warn(err);
-  }
-  useEffect(() => {
+  //   const getArticles = async () => {
+  //     const options = {
+  //       method: 'GET',
+  //       headers: {
+  //         'X-CSRFToken': Cookies.get('csrftoken'),
+  //       },
+  //     };
+  //     const response = await fetch('/api/v1/articles/', options).catch(handleError);
+  //     if (!response.ok) {
+  //       throw new Error("Network response not ok");
+  //     } else {
+  //       const data = await response.json();
+  //       setArticleList(data);
+  //     }
+  //   }
+  //   getArticles();
+  // }, [auth]);
 
-    const getArticles = async () => {
-      const options = {
-        method: 'GET',
-        headers: {
-          'X-CSRFToken': Cookies.get('csrftoken'),
-        },
-      };
-      const response = await fetch('/api/v1/articles/', options).catch(handleError);
-      if (!response.ok) {
-        throw new Error("Network response not ok");
-      } else {
-        const data = await response.json();
-        setArticleList(data);
-      }
-    }
-    getArticles();
-  }, [auth]);
-
-  if (!articlelist) {
-    return 'Loading articles...'
-  }
+  const navigate = useNavigate()
 
   return (
-    <div className="App">
-      <Header
+    <div className="App conatiner-fluid">
+
+
+
+      <Header />
+      <main>
+        <Outlet context={[navigate, auth, setAuth]} />
+      </main>
+
+
+
+
+
+      {/* <Header
         setView={setView}
         auth={auth}
         setAuth={setAuth} 
@@ -82,7 +91,7 @@ function App() {
             articleClick={articleClick}
             articlelist={articlelist}
           />}
-      </div>
+      </div> */}
     </div>
   );
 }

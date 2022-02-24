@@ -208,6 +208,13 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
         setPreview(null);
     }
 
+    //////////////////////////////////////////////////////////////////////// CLEAR FIELDS
+
+    const clearFields = e => {
+        setState(INITIAL_STATE)
+        setPreview(null)
+    }
+
     const draftsHTML = draftlist.map((article) => <button key={article.id} type='button' value={article.id} onClick={handleClick}>{article.title} </button>)
 
     return (
@@ -247,7 +254,7 @@ function ArticleForm({ articlelist, setArticleList, handleError, setView }) {
                 onChange={previewImage}
                 />
                 {preview && <div><img src={preview} alt='preview' /></div>}
-            <Button type='button' onClick={()=> setState(INITIAL_STATE)}>Clear Fields</Button>
+            <Button type='button' onClick={clearFields}>Clear Fields</Button>
             <Button type='button' className='save-draft'onClick={saveArticle}>Save Draft</Button>
             <Button type='button' className='delete-draft' onClick={deleteArticle}>Delete Draft</Button> 
             <Button type='submit' className='delete-draft'>Submit Article</Button>

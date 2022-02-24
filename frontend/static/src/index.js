@@ -4,10 +4,32 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ArticleList from './components/ArticleList';
+import ArticleForm from './components/ArticleForm';
+import LoginForm from './components/LoginForm';
+import Registration from './components/Registration';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} >
+          <Route index element={<ArticleList />} />
+          <Route path='login' element={<LoginForm />} />
+          {/* <Route path='register' element={<Registration />} />
+          <Route path='drafts' element={<ArticleForm />} /> */} */}
+          {/* <Route path='admin' element={<Admin />} />
+          {/* <Route path='*' element={
+            <main style={{ padding: '1 rem' }}>
+              <p>There's nothing here!</p>
+            </main>
+          } /> */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
