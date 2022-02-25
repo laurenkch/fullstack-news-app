@@ -34,6 +34,7 @@ class PublishedDetailView(generics.RetrieveAPIView):
 
 class AllArticlesView(generics.ListAPIView):
     permission_classes = (IsAdminUser,)
+    serializer_class = ArticleSerializer
     '''
     returns all articles for the admin. 
     '''

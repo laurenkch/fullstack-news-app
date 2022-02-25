@@ -35,7 +35,7 @@ function ArticleForm() {
 
     useEffect(() => {
         const getDraftArticles = async () => {
-            const response = await fetch('/api/v1/articles/user/').catch(handleError);
+            const response = await fetch('/api/v1/articles/author/').catch(handleError);
             if (!response.ok) {
                 throw new Error("Network response not ok");
             } else {
@@ -134,13 +134,13 @@ function ArticleForm() {
                 body: formData,
             }
 
-            const response = await fetch('/api/v1/articles/user/', options).catch(handleError);
+            const response = await fetch('/api/v1/articles/author/', options).catch(handleError);
 
             if (!response.ok) {
                 throw new Error("Network response not ok");
             }
             const submittedArticle = await response.json()
-            setArticleList([...draftlist, submittedArticle.title])
+            setDraftList([...draftlist, submittedArticle])
             setState(INITIAL_STATE);
             setPreview(null);
         }

@@ -17,7 +17,6 @@ function App() {
 
   const [articlelist, setArticleList] = useState(null)
 
-
   const navigate = useNavigate()
 
 
@@ -47,7 +46,7 @@ function App() {
 
 
 
-      <Header auth={auth} setAuth={setAuth}/>
+      <Header auth={auth} setAuth={setAuth} navigate={navigate}/>
       <main>
         <Outlet context={[navigate, auth, setAuth, articlelist, setArticleList]} />
       </main>

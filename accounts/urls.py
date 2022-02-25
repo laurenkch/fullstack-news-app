@@ -4,6 +4,6 @@ from .views import ProfileListAPIView
 
 urlpatterns=[
     path('profiles/', ProfileListAPIView.as_view()),
-
+    # path('user/', checkAdminPriviledges),
 ]
 

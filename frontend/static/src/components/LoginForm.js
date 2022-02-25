@@ -49,10 +49,12 @@ function LoginForm() {
             throw new Error("Network response not ok");
         } else {
             const data = await response.json();
+            console.log(data);
             Cookies.set("Authorization", `Token ${data.key}`);
             setAuth(true);
         }
         navigate('/');
+
     }
 
     return (

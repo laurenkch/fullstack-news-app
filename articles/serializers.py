@@ -14,7 +14,6 @@ class ArticleAuthorSerializer(serializers.ModelSerializer):
         fields = ('title', 'body', 'image','id','phase')
 
 
-    
 
 
 

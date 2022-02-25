@@ -44,13 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #apps
+    # apps
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
     'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
 
-    #third party
+    # third party
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -68,6 +68,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
+}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserDetailsSerializer',
+    'TOKEN_SERIALIZER': 'accounts.serializers.TokenSerializer',
 }
 
 MIDDLEWARE = [
@@ -156,7 +161,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Substituting  a custom User model
+# Substituting  a custom User model
 # https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#substituting-a-custom-user-model
 
 AUTH_USER_MODEL = 'accounts.CustomUser'

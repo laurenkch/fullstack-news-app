@@ -2,9 +2,8 @@ import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
 import { handleError } from './utility';
 
-function Header({auth, setAuth}) {
+function Header({auth, setAuth, navigate}) {
 
-    console.log(auth)
     const handleLogout = async e => {
         e.preventDefault();
 
@@ -26,6 +25,7 @@ function Header({auth, setAuth}) {
             Cookies.remove("Authorization");
             setAuth(false);
         }
+        navigate('/');
     }
 
     return (
