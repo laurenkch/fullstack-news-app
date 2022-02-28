@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 function ArticleDetail() {
 
     let params = useParams();
-    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList, superuser, setSuperUser] = useOutletContext();
 
     const getArticle = async () => {
 

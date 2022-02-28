@@ -7,7 +7,7 @@ import { useOutletContext} from 'react-router-dom'
 
 function Register() {
 
-    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList, superuser, setSuperUser] = useOutletContext();
 
 
     const [state, setState] = useState({

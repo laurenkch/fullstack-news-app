@@ -10,6 +10,7 @@ import ArticleForm from './components/ArticleForm';
 import LoginForm from './components/LoginForm';
 import Registration from './components/Registration';
 import ArticleDetail from './components/ArticleDetail';
+import AdminList from './components/AdminList';
 
 
 ReactDOM.render(
@@ -22,7 +23,7 @@ ReactDOM.render(
           <Route path='login' element={<LoginForm />} />
           <Route path='register' element={<Registration />} />
           <Route path='drafts' element={<ArticleForm />} />
-          {/* <Route path='admin' element={<Admin />} /> */}
+          <Route path='admin' element={<AdminList />} />
           <Route path='*' element={
             <main style={{ padding: '1 rem' }}>
               <p>There's nothing here!</p>

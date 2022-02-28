@@ -39,8 +39,13 @@ li {
     transition: all 0.15s ease-in-out;
 }
 
-
-
+a :active, :after, :link, :visited {
+  text-decoration: none;
+  color: var(--darkgrey);
+}
+a :hover {
+  color: var(--darkgrey);
+}
 /*//////////////////////////////////////////HEADER and APP*/
 
 
@@ -53,9 +58,10 @@ li {
 nav ul {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-nav .btn {
+nav a {
   margin: 10px 10px 0 10px;
 }
 
@@ -63,12 +69,22 @@ nav .btn {
   margin: 0 30px;
 }
 
-.nav-buttons {
+.nav-links {
   display: flex;
 }
 nav {
   margin-bottom: 20px;
+
 }
+
+.nav-links a:hover {
+  color: var(--darkgrey);
+}
+
+.wrapper {
+  width: 80%;
+}
+
 /*//////////////////////////////////////////ARTICLE LIST*/
 
 .article-list {
@@ -110,4 +126,14 @@ nav {
 
 article {
   margin: 10px 0px;
+}
+/*//////////////////////////////////////////ADMIN LIST*/
+
+.admin-image {
+  width: 700px;
+  height: auto;
+}
+
+.admin-image img {
+  width: 100%;
 }

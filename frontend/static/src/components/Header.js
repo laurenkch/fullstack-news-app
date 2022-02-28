@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
 import { handleError } from './utility';
 
-function Header({auth, setAuth, navigate}) {
+function Header({ auth, setAuth, navigate, superuser, setSuperUser}) {
 
     const handleLogout = async e => {
         e.preventDefault();
@@ -24,6 +24,7 @@ function Header({auth, setAuth, navigate}) {
         } else {
             Cookies.remove("Authorization");
             setAuth(false);
+            setSuperUser(false);
         }
         navigate('/');
     }
@@ -31,21 +32,29 @@ function Header({auth, setAuth, navigate}) {
     return (
         <nav>
             <ul>
-                <div className='nav-buttons'>
+                <div className='nav-links'>
                 <li>
-                    <NavLink to='/'>Home</NavLink>
+                    <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
                 </li>
-                    {auth &&
+                    {auth && !superuser &&
+                                <li>
+                            <NavLink className='btn toggle-btn' to='/drafts'>
+                                        Drafts
+                                    </NavLink>
+                                </li>
+                        }
+                    {superuser &&
                         <li>
-                            <NavLink to='/drafts'>
-                                Drafts
+                            <NavLink className='btn toggle-btn' to='/admin'>
+                                Admin
                             </NavLink>
-                        </li>}
+                        </li>
+                    }
                 </div>
                 <div className='login-logout-button'>
                 {auth ?
                     <li>
-                        <button type='button' onClick={handleLogout} value={'logout'}>
+                        <button type='button' className='btn toggle-btn' onClick={handleLogout} value={'logout'}>
                             Logout
                         </button>
                     </li> : 

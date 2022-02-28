@@ -6,7 +6,7 @@ import { handleError } from './utility';
 
 function ArticleList() {
 
-    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList, superuser, setSuperUser] = useOutletContext();
 
 
     if (!articlelist) {

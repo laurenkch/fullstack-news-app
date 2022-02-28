@@ -8,7 +8,7 @@ import { handleError } from './utility';
 
 function ArticleForm() {
 
-    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList, superuser, setSuperUser] = useOutletContext();
 
 
     const INITIAL_STATE = {

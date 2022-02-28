@@ -7,7 +7,7 @@ import { handleError } from './utility';
 
 function LoginForm() {
     
-    const [navigate, auth, setAuth, articlelist, setArticleList] = useOutletContext();
+    const [navigate, auth, setAuth, articlelist, setArticleList, superuser, setSuperUser] = useOutletContext();
 
     const [state, setState] = useState({
         username: '',
@@ -49,9 +49,12 @@ function LoginForm() {
             throw new Error("Network response not ok");
         } else {
             const data = await response.json();
-            console.log(data);
             Cookies.set("Authorization", `Token ${data.key}`);
+            if (data.is_superuser) {
+                setSuperUser(true);
+            }
             setAuth(true);
+            
         }
         navigate('/');
 

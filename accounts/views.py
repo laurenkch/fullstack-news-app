@@ -11,11 +11,3 @@ class ProfileListAPIView(generics.ListAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-
-# @api_view(['GET'])
-# def checkAdminPriviledges(request):
-#     user = request.user
-#     serializer = UserDetailsSerializer(user)
-#     return Response(serializer.data['is_superuser'])
-
