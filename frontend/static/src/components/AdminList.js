@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { handleError } from './utility';
 import Form from 'react-bootstrap/Form';
+import Cookies from 'js-cookie';
 
 function AdminList() {
 
@@ -18,14 +19,14 @@ function AdminList() {
                 const data = await response.json();
                 setAllArticles(data);
             }
-            }
+        }
         getAllArticles();
     }, [])
     
     if (!allarticles) {
         return 'Loading...'
     }
-    console.log(allarticles);
+
     const FILTER_MAP = {
         All: () => true,
         Published: article => article.phase == 'Published',
@@ -35,43 +36,93 @@ function AdminList() {
     }
     const FILTER_NAMES = Object.keys(FILTER_MAP);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e.target);
-    }
-
     const filterList = FILTER_NAMES.map((name, index) => (
         <button key={index} type="button" className="btn toggle-btn" onClick={() => setFilter(name)}>
             <span>{name}</span>
         </button>
     ));
 
+    const changePhase = async (e, article) => {
+
+        const formData = new FormData();
+
+        formData.append('phase', e.target.value);
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: formData
+        }
+        const response = await fetch(`/api/v1/articles/admin/${article.id}/`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error('Network was not ok');
+        }
+
+    }
+
+    const STATUS_NAMES = [
+        'Published',
+       'Submitted',
+        'Rejected',
+        'Archived',
+    ]
+
+    const articleCheckboxes = (article) => { 
+        return(
+        STATUS_NAMES
+            .map((name, index) => name == article.phase ?
+                <Form.Check
+                    key={index}
+                    inline
+                    label={name}
+                    name="phase"
+                    type='radio'
+                    id={`inline-radio`}
+                    value={name}
+                    defaultChecked
+                    onChange={() => changePhase(article)}
+                />
+                :
+                <Form.Check
+                    key={index}
+                    inline
+                    label={name}
+                    name="phase"
+                    type='radio'
+                    id={`inline-radio`}
+                    value={name}
+                    onChange={(e) => changePhase(e,article)}
+                />
+            ));
+    };
+
+
     const listHTML = allarticles
         .filter(FILTER_MAP[filter])
         .map(article => (
             <article key={article.id}>
+                <h3 className='title'>{article.title}</h3>
+            <Form>
+                    {articleCheckboxes(article)}
+            </Form>
                 <div className='admin-image'>
                     <img src={article.image} alt="article reference" />
                 </div>
-                <h3>{article.title}</h3>
-                <p>{article.author}</p>
+                <p className='author'>By: {article.authorname}</p>
                 <p>{article.body}</p>
-                <Form.Select aria-label="Default select example" onSubmit={handleSubmit}>
-                    <option>Adjust article status</option>
-                    <option value="Published">Published</option>
-                    <option value="Submitted">Submitted</option>
-                    <option value="Rejected">Rejected</option>
-                    <option value="Archived">Archived</option>
-                    <button type='submit'>Submit</button>
-                </Form.Select>
+                <time className='date' dateTime={article.created_at.slice(0, 10)} >{article.created_at.slice(0, 10)}</time>
             </article>)
         );
 
 
     return (
-        <div className='wrapper'>
-            {filterList}
+        <div className='admin-outer-wrapper'>
+        <div className='admin-inner-wrapper'>
+            Filter: {filterList}
             {listHTML}
+            </div>
         </div>
     )
 }

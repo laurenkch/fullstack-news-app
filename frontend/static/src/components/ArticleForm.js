@@ -104,7 +104,7 @@ function ArticleForm() {
                 throw new Error('Network was not ok');
             }
             const submittedArticle = await response.json()
-            setArticleList([...draftlist, submittedArticle.title])
+            setDraftList([...draftlist, submittedArticle.title])
             setState(INITIAL_STATE);
             setPreview(null);
             // clears image iput on form

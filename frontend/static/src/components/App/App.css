@@ -129,11 +129,44 @@ article {
 }
 /*//////////////////////////////////////////ADMIN LIST*/
 
+article {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+  padding: 35px;
+  border: 2px solid var(--darkgrey);
+}
+
 .admin-image {
   width: 700px;
   height: auto;
+  margin: 20px 0;
 }
 
 .admin-image img {
   width: 100%;
+}
+
+.admin-outer-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-inner-wrapper {
+  width: 80%;
+}
+
+.date {
+  font-style: italic;
+}
+
+.title, .author {
+  text-transform: capitalize;
+}
+
+.form-check {
+  align-self: flex-end;
+  margin: 10px 0px 20px 0px;
 }
