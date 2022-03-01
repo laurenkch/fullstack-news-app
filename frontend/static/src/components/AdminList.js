@@ -103,10 +103,10 @@ function AdminList() {
         .filter(FILTER_MAP[filter])
         .map(article => (
             <article key={article.id}>
-                <h3 className='title'>{article.title}</h3>
-            <Form>
+                <Form>
                     {articleCheckboxes(article)}
-            </Form>
+                </Form>
+                <h3 className='title'>{article.title}</h3>
                 <div className='admin-image'>
                     <img src={article.image} alt="article reference" />
                 </div>
@@ -119,9 +119,14 @@ function AdminList() {
 
     return (
         <div className='admin-outer-wrapper'>
-        <div className='admin-inner-wrapper'>
-            Filter: {filterList}
-            {listHTML}
+            <div className='admin-inner-wrapper'>
+                <div className='filters'>
+                    <h3>View</h3>
+                    {filterList}
+                </div>
+                <div className='admin-article-view'>
+                    {listHTML}
+                </div>
             </div>
         </div>
     )

@@ -156,6 +156,8 @@ article {
 
 .admin-inner-wrapper {
   width: 80%;
+  display: flex;
+
 }
 
 .date {
@@ -170,3 +172,56 @@ article {
   align-self: flex-end;
   margin: 10px 0px 20px 0px;
 }
+
+.admin-inner-wrapper form  {
+  align-self: flex-end;
+}
+
+.form-check-input[type=radio] {
+  border-radius: 3% !important;
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.form-check-input:checked[type=radio] {
+  background-image: url(./../../check_black_24dp.svg) !important;
+  color: white !important;
+  font-size: 16px;
+
+}
+
+.form-check-input:checked {
+    background-color: white !important;
+    border: 3px solid rgba(64, 64, 64, 0.7) !important;
+
+}
+
+.form-check .form-check-inline{
+  vertical-align: middle;
+}
+
+input[type="radio"] {
+  vertical-align: middle;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  margin-right: 10px;
+}
+
+.admin-article-view h3 {
+  margin-top: 15px;
+}
+
+.filters .btn {
+  background-color: var(--darkgrey);
+  margin: 5px;
+  color: white;
+}
+
+.filters .btn:hover {
+  color: white;
+}
+
