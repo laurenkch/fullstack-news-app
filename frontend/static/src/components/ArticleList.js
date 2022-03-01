@@ -35,9 +35,11 @@ function ArticleList() {
 
     return (
         <div>
-            <h2>
-                Articles
+            <div className ='title-block'>
+                <h2 >
+                The News
             </h2>
+            </div>
             <section className="article-list">
                 {articleHTML}
             </section>

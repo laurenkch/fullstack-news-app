@@ -46,6 +46,10 @@ a :active, :after, :link, :visited {
 a :hover {
   color: var(--darkgrey);
 }
+
+.delete-draft button {
+  background-color: red !important;
+}
 /*//////////////////////////////////////////HEADER and APP*/
 
 
@@ -82,7 +86,34 @@ nav {
 }
 
 .wrapper {
-  width: 80%;
+  width: 100%;
+}
+/*//////////////////////////////////////////LOGIN AND REGISTER*/
+
+.verification-redirect {
+  background-color: white;
+  border: none;
+  margin: 30px;
+  color: var(--darkgrey);
+  font-style: italic;
+
+}
+
+.account {
+  width: 90%;
+}
+
+.account-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.account label{
+  margin: 4px 0;
+}
+
+.account form button {
+  margin: 10px 0;
 }
 
 /*//////////////////////////////////////////ARTICLE LIST*/
@@ -127,20 +158,105 @@ nav {
 article {
   margin: 10px 0px;
 }
+
+.title-block {
+  background-color: var(--darkgrey);
+  color: white;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-block h2 {
+  font-size: 5em;
+}
+/*//////////////////////////////////////////ARTICLE DETAIL*/
+
+.article-detail {
+  border: none;
+  width: 90%;
+  padding: 0;
+}
+
+.article-detail-view article {
+  margin: 0 !important;
+}
+
+.article-detail-view {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.article-detail img{
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+  margin-top: 100px;
+}
+
+.article-detail span {
+  background-color: var(--darkgrey);
+  color: white;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* //////////////////////////////////////////DRAFT VIEW*/
+
+.draft-wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.draft-form {
+  margin: 40px 0px;
+}
+
+.draft-buttons {
+  margin: 20px 0px;
+}
+
+.draft-list button {
+  background-color: var(--darkgrey);
+  border:none;
+  color: white;
+  padding: 10px;
+  border-radius: 2%;
+  margin: 10px 0;
+
+}
+
 /*//////////////////////////////////////////ADMIN LIST*/
 
-article {
+.navy-block {
+  background-color: var(--darkgrey);
+  height: 60px;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  top: 60px;
+}
+
+.admin-article-view article {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   margin: 50px;
   padding: 35px;
-  border: 2px solid var(--darkgrey);
+  border: 2px solid rgba(64, 64, 64, 0.7);
+  border-radius: 0.4%;
 }
 
 .admin-image {
-  width: 700px;
+  width: 100%;
   height: auto;
   margin: 20px 0;
 }
@@ -155,9 +271,8 @@ article {
 }
 
 .admin-inner-wrapper {
-  width: 80%;
   display: flex;
-
+  flex-direction: column;
 }
 
 .date {
@@ -207,8 +322,7 @@ input[type="radio"] {
 .filters {
   display: flex;
   flex-direction: column;
-  padding-top: 60px;
-  margin-right: 10px;
+  margin: 0 35px;
 }
 
 .admin-article-view h3 {
@@ -225,3 +339,84 @@ input[type="radio"] {
   color: white;
 }
 
+/* /////////////////////////////////////////////////////////////////DESKTOP */
+
+@media (min-width: 768px) {
+ 
+  .wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
+
+.admin-outer-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-inner-wrapper {
+  width: 80%;
+  flex-direction: row;
+
+}
+
+.admin-image {
+  width: 700px;
+  height: auto;
+  margin: 20px 0;
+}
+
+.article-detail img{
+  width: auto;
+}
+
+.article-detail {
+  width: 60%;
+}
+.article-detail-view {
+  display: flex;
+  justify-content: center;
+  }
+
+  .filters {
+  padding-top: 60px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+.account {
+  width: 30%;
+}
+
+.draft-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.draft-list {
+  margin: 0px 50px;
+  width: 25%;
+}
+
+.draft-form {
+    margin: 0px 200px 0px 100px;
+    width: 80%;
+}
+
+.draft-list button {
+  margin: 10px 0;
+
+}
+
+.title-block {
+  height: 500px;
+}
+
+.title-block h2 {
+  font-size: 10em;
+}
+
+}

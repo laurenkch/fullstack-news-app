@@ -42,9 +42,11 @@ function ArticleDetail() {
     }
 
     return (
-        <div>
-        <article>
-            <h3>{highlightedArticle.title}</h3>
+        <div className="article-detail-view">
+            <article className='article-detail'>
+            <span>
+                    <h3>{highlightedArticle.title}</h3>
+            </span>
             <img src={highlightedArticle.image} alt='submitted by author'/>
             <p>{highlightedArticle.body}</p>
             </article>

@@ -120,6 +120,7 @@ function AdminList() {
     return (
         <div className='admin-outer-wrapper'>
             <div className='admin-inner-wrapper'>
+                <div className='navy-block'></div>
                 <div className='filters'>
                     <h3>View</h3>
                     {filterList}

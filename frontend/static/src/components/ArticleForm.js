@@ -224,10 +224,12 @@ function ArticleForm() {
     const draftsHTML = draftlist.map((article) => <button key={article.id} type='button' value={article.id} onClick={handleClick}>{article.title} </button>)
 
     return (
-        <div>
-        <h2>Draft List</h2>
-        {draftsHTML}
-
+        <div className='draft-wrapper'>
+        <div className='draft-list'>
+            <h2>Current Drafts</h2>
+            {draftsHTML}
+            </div>
+        <div className='draft-form'>
         <h2>
             Submit an Article
         </h2>
@@ -246,11 +248,12 @@ function ArticleForm() {
             <Form.Control
                 id='body'
                 name='body'
-                type='textarea'
+                as='textarea'
                 onChange={handleInput}
                 value={state.body}
                 autoComplete='off'
                 required
+                rows={10}
             />
             <Form.Label htmlFor="image">Image</Form.Label>
             <Form.Control
@@ -259,12 +262,15 @@ function ArticleForm() {
                 type='file'
                 onChange={previewImage}
                 />
-                {preview && <div><img src={preview} alt='preview' /></div>}
+                        {preview && <div><img src={preview} alt='preview' /></div>}
+            <div className='draft-buttons'>
             <Button type='button' onClick={clearFields}>Clear Fields</Button>
             <Button type='button' className='save-draft'onClick={saveArticle}>Save Draft</Button>
             <Button type='button' className='delete-draft' onClick={deleteArticle}>Delete Draft</Button> 
-            <Button type='submit' className='delete-draft'>Submit Article</Button>
-            </Form>
+                            <Button type='submit' className='delete-draft'>Submit Article</Button>
+                        </div>
+                    </Form>
+            </div>
         </div>
     )
 }

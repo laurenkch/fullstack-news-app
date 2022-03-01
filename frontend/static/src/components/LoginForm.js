@@ -61,7 +61,8 @@ function LoginForm() {
     }
 
     return (
-        <div>
+        <div className='account-wrapper'>
+        <div className='account'>
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor="username">Username</Form.Label>
             <Form.Control
@@ -93,6 +94,7 @@ function LoginForm() {
             <Button type="submit">Login</Button>
             </Form>
             <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
+            </div>
         </div>
     )
 }

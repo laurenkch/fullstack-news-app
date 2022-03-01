@@ -63,7 +63,8 @@ function Register() {
     }
 
     return (
-        <div>
+        <div className='account-wrapper'>
+        <div className='account'>
             <Form onSubmit={handleSubmit}>
                 <Form.Label htmlFor='username'>Username</Form.Label>
                 <Form.Control
@@ -103,8 +104,9 @@ function Register() {
                 />
                 <Button type='submit'>Create Account</Button>
             </Form>
-            <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">I have an account!</button>
-        </div>
+            <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">Login to exisiting account</button>
+            </div>
+            </div>
     )
 }
 
